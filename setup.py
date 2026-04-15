@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="blocklist-py",
-    version="0.0.2",
+    version="0.0.3",
     description=(
         "module to create and format blocklists for use in pihole"
     ),
