@@ -2,8 +2,7 @@ from requests import get, ConnectTimeout
 from re import compile
 from loguru import logger
 from os import path
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from datetime import datetime, UTC
 
 from .errors import (
     LinkNotExistsError
@@ -85,8 +84,7 @@ class LinkCollection:
             raise FileNotFoundError(
                 "Directory {path.split(file)[0]} does not exist"
             )
-        now = datetime.now(ZoneInfo("Europe/Berlin"))\
-            .strftime("%Y-%m-%d %H:%M:%S %z")
+        now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S %z")
         with open(file, "w") as fp:
             fp.write(
                 "# Autmoatic generated list of hosts to use on a pihole "
