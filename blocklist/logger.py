@@ -4,7 +4,7 @@ from sys import stderr
 
 def define_logger(
     loglevel: str = "INFO", to_file: bool = False,
-    logfile: str = "/var/log/blocklist.log"
+    logfile: str = "/var/log/blocklist.log", loglevel_file: str = "INFO"
 ) -> None:
     allowed_levels = [
         "TRACE", "DEBUG", "INFO", "SUCCESS", "WARNING", "ERROR", "CRITICAL"
@@ -20,16 +20,17 @@ def define_logger(
         ),
         colorize=True
     )
-    if loglevel not in allowed_levels:
+    if loglevel_file not in allowed_levels:
         logger.warning(
-            f"loglevel {loglevel} not in allowed levels. default to 'INFO'. "
-            f"allowed levels: {allowed_levels}"
+            f"loglevel_file {loglevel_file} not in allowed levels. "
+            f"default to 'INFO'. Allowed levels: {allowed_levels}"
         )
+        loglevel_file = "INFO"
     if to_file:
         try:
             logger.add(
                 logfile,
-                level=loglevel if loglevel in allowed_levels else "INFO",
+                level=loglevel_file,
                 colorize=False,
                 format=(
                     "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | "
